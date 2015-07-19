@@ -88,6 +88,11 @@ You can also change velocity of turning album cover.(Default value is 1 which is
 mpv.setVelocity(2);
 ```
 
+# Download
+You can download .aar library from [here](https://github.com/iammert/MusicPlayerView/blob/master/library-release.aar)
+
+It will be available on maven repo soon.
+
 # Libraries Used
 
 [Picasso by Square](http://square.github.io/picasso/)
