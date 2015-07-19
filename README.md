@@ -76,6 +76,11 @@ To stop playing
 mpv.stop();
 ```
 
+Check if it is rotating(Playing)
+```java
+mpv.isRotating();
+```
+
 When you call ```start()``` method, image will start rotating and progress(seconds) will start counting 
 automatically. when you call ```stop()``` method, rotating will be stopped, time too. You may want to handle
 progress yourself. You can disable progress thread.
