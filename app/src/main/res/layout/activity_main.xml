@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#25272d">
+
+    <TextView
+        android:id="@+id/textViewSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:text="Rock With You"
+        android:layout_marginTop="50dp"/>
+
+
+    <TextView
+        android:id="@+id/textViewSinger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="#80FFFFFF"
+        android:textSize="15sp"
+        android:text="Michael Jackson"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textViewSong"/>
+
+
+    <co.mobiwise.library.MusicPlayerView
+        android:id="@+id/mpv"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/textViewSinger"
+        app:textSize = "14sp"
+        app:textColor = "#80FFFFFF"
+        app:buttonColor = "#ff0028"
+        app:progressLoadedColor = "#00815e"/>
+
+    <ImageView
+        android:id="@+id/like"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/icon_like"
+        android:layout_below="@+id/mpv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+
+
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/icon_next"
+        android:layout_below="@+id/mpv"
+        android:layout_alignRight="@+id/mpv"
+        android:layout_marginTop="50dp"/>
+
+
+    <ImageView
+        android:id="@+id/previous"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/icon_previous"
+        android:layout_below="@+id/mpv"
+        android:layout_alignLeft="@+id/mpv"
+        android:layout_marginTop="50dp"/>
+
+</RelativeLayout>
