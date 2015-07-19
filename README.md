@@ -41,12 +41,11 @@ mpv = (MusicPlayerView) findViewById(R.id.mpv);
 
 You can customize UI view programmatically
 ```java
-
-        mpv.setButtonColor(Color.DKGRAY);
-        mpv.setCoverDrawable(R.drawable.mycover);
-        mpv.setProgressEmptyColor(Color.GRAY);
-        mpv.setProgressLoadedColor(Color.BLUE);
-        mpv.setTimeColor(Color.WHITE);
+mpv.setButtonColor(Color.DKGRAY);
+mpv.setCoverDrawable(R.drawable.mycover);
+mpv.setProgressEmptyColor(Color.GRAY);
+mpv.setProgressLoadedColor(Color.BLUE);
+mpv.setTimeColor(Color.WHITE);
 ```
 
 ##  Methods
