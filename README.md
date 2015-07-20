@@ -97,17 +97,17 @@ Project build.gradle
 
 ```
 repositories {
-	    maven {
-	        url "https://jitpack.io"
-	    }
-	}
+    maven {
+        url "https://jitpack.io"
+    }
+}
 ```
 
 Module build.gradle
 ```
 dependencies {
-	        compile 'com.github.iammert:MusicPlayerView:64930f7e4d'
-	}
+	compile 'com.github.iammert:MusicPlayerView:64930f7e4d'
+}
 ```
 
 It will be available on maven repo soon.
