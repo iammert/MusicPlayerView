@@ -92,8 +92,23 @@ You can also change velocity of turning album cover.(Default value is 1 which is
 mpv.setVelocity(2);
 ```
 
-# Download
-You can download .aar library from [here](https://github.com/iammert/MusicPlayerView/blob/master/library-release.aar)
+# Import
+Project build.gradle
+
+```
+repositories {
+	    maven {
+	        url "https://jitpack.io"
+	    }
+	}
+```
+
+Module build.gradle
+```
+dependencies {
+	        compile 'com.github.iammert:MusicPlayerView:64930f7e4d'
+	}
+```
 
 It will be available on maven repo soon.
 
