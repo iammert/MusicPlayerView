@@ -1,4 +1,6 @@
 # MusicPlayerView
+[![Join the chat at https://gitter.im/iammert/MusicPlayerView](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/iammert/MusicPlayerView)
+
 Android custom view and progress for music player.
 
 # Screen 
