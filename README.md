@@ -92,6 +92,11 @@ You can also change velocity of turning album cover.(Default value is 1 which is
 mpv.setVelocity(2);
 ```
 
+If you have live player then you don't have progress. You can also disable progress view.
+```java
+mpv.setProgressVisibility(false);
+```
+
 # Import
 Project build.gradle
 
@@ -106,7 +111,7 @@ repositories {
 Module build.gradle
 ```
 dependencies {
-	compile 'com.github.iammert:MusicPlayerView:64930f7e4d'
+	compile 'com.github.iammert:MusicPlayerView:dc5f9ad3bc'
 }
 ```
 
