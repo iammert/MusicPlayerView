@@ -214,6 +214,11 @@ public class MusicPlayerView extends View {
     private boolean isAutoProgress = true;
 
     /**
+     * Progressview and time will be visible/invisible depends on this
+     */
+    private boolean mProgressVisibility = true;
+
+    /**
      * Constructor
      *
      * @param context
@@ -422,31 +427,32 @@ public class MusicPlayerView extends View {
                 mCenterY - mBitmapPause.getHeight() / 2f,
                 mPaintPlayPause);
 
-        //Draw empty progress
-        canvas.drawArc(rectF, 145, 250, false, mPaintProgressEmpty);
+        if(mProgressVisibility){
+            //Draw empty progress
+            canvas.drawArc(rectF, 145, 250, false, mPaintProgressEmpty);
 
-        //Draw loaded progress
-        canvas.drawArc(rectF, 145, calculatePastProgressDegree(), false, mPaintProgressLoaded);
+            //Draw loaded progress
+            canvas.drawArc(rectF, 145, calculatePastProgressDegree(), false, mPaintProgressLoaded);
 
-        //Draw left time text
-        String leftTime = secondsToTime(calculateLeftSeconds());
-        mPaintTime.getTextBounds(leftTime, 0, leftTime.length(), mRectText);
+            //Draw left time text
+            String leftTime = secondsToTime(calculateLeftSeconds());
+            mPaintTime.getTextBounds(leftTime, 0, leftTime.length(), mRectText);
 
-        canvas.drawText(leftTime,
-                (float) (mCenterX * Math.cos(Math.toRadians(35.0))) + mWidth / 2.0f - mRectText.width() / 1.5f,
-                (float) (mCenterX * Math.sin(Math.toRadians(35.0))) + mHeight / 2.0f + mRectText.height() + 15.0f,
-                mPaintTime);
+            canvas.drawText(leftTime,
+                    (float) (mCenterX * Math.cos(Math.toRadians(35.0))) + mWidth / 2.0f - mRectText.width() / 1.5f,
+                    (float) (mCenterX * Math.sin(Math.toRadians(35.0))) + mHeight / 2.0f + mRectText.height() + 15.0f,
+                    mPaintTime);
 
-        //Draw passed time text
-        String passedTime = secondsToTime(calculatePassedSeconds());
-        mPaintTime.getTextBounds(passedTime, 0, passedTime.length(), mRectText);
+            //Draw passed time text
+            String passedTime = secondsToTime(calculatePassedSeconds());
+            mPaintTime.getTextBounds(passedTime, 0, passedTime.length(), mRectText);
 
-        canvas.drawText(passedTime,
-                (float) (mCenterX * -Math.cos(Math.toRadians(35.0))) + mWidth / 2.0f - mRectText.width() / 3.0f,
-                (float) (mCenterX * Math.sin(Math.toRadians(35.0))) + mHeight / 2.0f + mRectText.height() + 15.0f,
-                mPaintTime);
+            canvas.drawText(passedTime,
+                    (float) (mCenterX * -Math.cos(Math.toRadians(35.0))) + mWidth / 2.0f - mRectText.width() / 3.0f,
+                    (float) (mCenterX * Math.sin(Math.toRadians(35.0))) + mHeight / 2.0f + mRectText.height() + 15.0f,
+                    mPaintTime);
 
-
+        }
     }
 
     /**
@@ -776,6 +782,11 @@ public class MusicPlayerView extends View {
     public void setTimeColor(int color){
         mTextColor = color;
         mPaintTime.setColor(mTextColor);
+        postInvalidate();
+    }
+
+    public void setProgressVisibility(boolean mProgressVisibility){
+        this.mProgressVisibility = mProgressVisibility;
         postInvalidate();
     }
 }

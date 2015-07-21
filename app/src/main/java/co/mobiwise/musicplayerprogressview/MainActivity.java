@@ -25,7 +25,6 @@ public class MainActivity extends Activity{
 
         mpv = (MusicPlayerView) findViewById(R.id.mpv);
         mpv.setCoverURL("https://upload.wikimedia.org/wikipedia/en/b/b3/MichaelsNumberOnes.JPG");
-        mpv.setMax(80);
 
         mpv.setOnClickListener(new View.OnClickListener() {
             @Override
