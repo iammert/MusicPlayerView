@@ -1,5 +1,9 @@
 package co.mobiwise.library;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.animation.StateListAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -17,8 +21,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -26,7 +32,7 @@ import com.squareup.picasso.Target;
 /**
  * Created by mertsimsek on 17/07/15.
  */
-public class MusicPlayerView extends View {
+public class MusicPlayerView extends View implements OnPlayPauseToggleListener{
 
     /**
      * Rect for get time height and width
@@ -68,21 +74,6 @@ public class MusicPlayerView extends View {
      * Play/Pause button region for handle onTouch
      */
     private Region mButtonRegion;
-
-    /**
-     * Play icon will be converted to Bitmap
-     */
-    private Bitmap mBitmapPlay;
-
-    /**
-     * Pause icon will be converted to Bitmap
-     */
-    private Bitmap mBitmapPause;
-
-    /**
-     * Paint for drawing play/pause icons to canvas.
-     */
-    private Paint mPaintPlayPause;
 
     /**
      * Paint to draw cover photo to canvas
@@ -219,6 +210,23 @@ public class MusicPlayerView extends View {
     private boolean mProgressVisibility = true;
 
     /**
+     * play pause animation duration
+     */
+    private static final long PLAY_PAUSE_ANIMATION_DURATION = 200;
+
+    /**
+     * Play Pause drawable
+     */
+    private PlayPauseDrawable mPlayPauseDrawable;
+
+    /**
+     * Animator set for play pause toggle
+     */
+    private AnimatorSet mAnimatorSet;
+
+    private boolean mFirstDraw = true;
+
+    /**
      * Constructor
      *
      * @param context
@@ -274,6 +282,11 @@ public class MusicPlayerView extends View {
      */
     private void init(Context context, AttributeSet attrs) {
 
+        setWillNotDraw(false);
+        mPlayPauseDrawable = new PlayPauseDrawable(context);
+        mPlayPauseDrawable.setCallback(callback);
+        mPlayPauseDrawable.setToggleListener(this);
+
         //Get Image resource from xml
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.playerview);
         Drawable mDrawableCover = a.getDrawable(R.styleable.playerview_cover);
@@ -328,12 +341,6 @@ public class MusicPlayerView extends View {
         mPaintButton.setStyle(Paint.Style.FILL);
         mPaintButton.setColor(mButtonColor);
 
-        //Play/Pause button icons paint and bitmaps
-        mPaintPlayPause = new Paint();
-        mPaintPlayPause.setAntiAlias(true);
-        mBitmapPlay = BitmapFactory.decodeResource(getResources(), R.drawable.icon_play);
-        mBitmapPause = BitmapFactory.decodeResource(getResources(), R.drawable.icon_pause);
-
         //Progress paint object creation
         mPaintProgressEmpty = new Paint();
         mPaintProgressEmpty.setAntiAlias(true);
@@ -355,6 +362,7 @@ public class MusicPlayerView extends View {
         //rectF and rect initializes
         rectF = new RectF();
         mRectText = new Rect();
+
 
     }
 
@@ -386,9 +394,11 @@ public class MusicPlayerView extends View {
         //button size is about to 1/4 of image size then we divide it to 8.
         mButtonRadius = mWidth / 8.0f;
 
-        //We resize icons with button radius. icons need to be inside circle.
-        mBitmapPlay = getResizedBitmap(mBitmapPlay, mButtonRadius - 20.0f, mButtonRadius - 20.0f);
-        mBitmapPause = getResizedBitmap(mBitmapPause, mButtonRadius - 20.0f, mButtonRadius - 20.0f);
+        //We resize play/pause drawable with button radius. button needs to be inside circle.
+        mPlayPauseDrawable.resize((1.2f * mButtonRadius / 5.0f), (3.0f * mButtonRadius / 5.0f) + 10.0f, (mButtonRadius / 5.0f));
+
+        mPlayPauseDrawable.setBounds(0, 0, mWidth, mHeight);
+
 
         mButtonRegion = new Region((int) (mCenterX - mButtonRadius),
                 (int) (mCenterY - mButtonRadius),
@@ -398,6 +408,7 @@ public class MusicPlayerView extends View {
         createShader();
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
     }
 
     /**
@@ -422,10 +433,6 @@ public class MusicPlayerView extends View {
 
         //Draw Play/Pause button
         canvas.drawCircle(mCenterX, mCenterY, mButtonRadius, mPaintButton);
-        canvas.drawBitmap(isRotating() ? mBitmapPause : mBitmapPlay,
-                mCenterX - mBitmapPause.getWidth() / 2f,
-                mCenterY - mBitmapPause.getHeight() / 2f,
-                mPaintPlayPause);
 
         if(mProgressVisibility){
             //Draw empty progress
@@ -453,6 +460,13 @@ public class MusicPlayerView extends View {
                     mPaintTime);
 
         }
+
+        if(mFirstDraw){
+            toggle();
+            mFirstDraw = false;
+        }
+
+        mPlayPauseDrawable.draw(canvas);
     }
 
     /**
@@ -530,13 +544,16 @@ public class MusicPlayerView extends View {
      * Start turning image
      */
     public void start() {
+
         isRotating = true;
+        mPlayPauseDrawable.setPlaying(isRotating);
         mHandlerRotate.removeCallbacksAndMessages(null);
         mHandlerRotate.postDelayed(mRunnableRotate, ROTATE_DELAY);
         if(isAutoProgress){
             mHandlerProgress.removeCallbacksAndMessages(null);
             mHandlerProgress.postDelayed(mRunnableProgress, PROGRESS_SECOND_MS);
         }
+        postInvalidate();
     }
 
     /**
@@ -544,6 +561,8 @@ public class MusicPlayerView extends View {
      */
     public void stop() {
         isRotating = false;
+        mPlayPauseDrawable.setPlaying(isRotating);
+        postInvalidate();
     }
 
     /**
@@ -734,7 +753,6 @@ public class MusicPlayerView extends View {
      */
     private int calculatePassedSeconds(){
         return currentProgress;
-
     }
 
     /**
@@ -788,5 +806,49 @@ public class MusicPlayerView extends View {
     public void setProgressVisibility(boolean mProgressVisibility){
         this.mProgressVisibility = mProgressVisibility;
         postInvalidate();
+    }
+
+    /**
+     * Play pause drawable callback
+     */
+    Drawable.Callback callback = new Drawable.Callback() {
+        @Override
+        public void invalidateDrawable(Drawable who) {
+            postInvalidate();
+        }
+
+        @Override
+        public void scheduleDrawable(Drawable who, Runnable what, long when) {
+
+        }
+
+        @Override
+        public void unscheduleDrawable(Drawable who, Runnable what) {
+
+        }
+    };
+
+    /**
+     * Notified when button toggled
+     */
+    @Override
+    public void onToggled() {
+        toggle();
+    }
+
+    /**
+     * Animate play/pause image
+     */
+    public void toggle() {
+        if (mAnimatorSet != null) {
+            mAnimatorSet.cancel();
+        }
+
+        mAnimatorSet = new AnimatorSet();
+        final Animator pausePlayAnim = mPlayPauseDrawable.getPausePlayAnimator();
+        mAnimatorSet.setInterpolator(new DecelerateInterpolator());
+        mAnimatorSet.setDuration(PLAY_PAUSE_ANIMATION_DURATION);
+        mAnimatorSet.playTogether(pausePlayAnim);
+        mAnimatorSet.start();
     }
 }

@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="pause_bar_width">48dp</dimen>
+    <dimen name="pause_bar_distance">40dp</dimen>
+    <dimen name="pause_bar_height">144dp</dimen>
+</resources>

@@ -6,6 +6,8 @@ Android custom view and progress for music player.
 # Screen 
 <img src="https://raw.githubusercontent.com/iammert/MusicPlayerView/master/art/art.gif"/>
 
+[Youtube Video Link](https://www.youtube.com/watch?v=HASd7XvMKbk)
+
 # Usage 
 
 You can define values on you XML file or you can make it programmatically. We have 5 values to customize
@@ -121,6 +123,8 @@ It will be available on maven repo soon.
 # Libraries Used
 
 [Picasso by Square](http://square.github.io/picasso/)
+
+[Material Play/Pause Animation](https://github.com/alexjlockwood/material-pause-play-animation) by [Alex](https://github.com/alexjlockwood)
 
 # Design Owner
 

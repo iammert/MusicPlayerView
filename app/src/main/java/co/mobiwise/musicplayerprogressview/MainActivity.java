@@ -1,15 +1,10 @@
 package co.mobiwise.musicplayerprogressview;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 
 import co.mobiwise.library.MusicPlayerView;
 
@@ -29,6 +24,7 @@ public class MainActivity extends Activity{
         mpv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (mpv.isRotating())
                     mpv.stop();
                 else
