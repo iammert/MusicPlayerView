@@ -4,7 +4,7 @@
 Android custom view and progress for music player.
 
 # Screen 
-<img src="https://raw.githubusercontent.com/iammert/MusicPlayerView/master/art/art.gif"/>
+<img src="https://raw.githubusercontent.com/iammert/MusicPlayerView/master/art/art2.gif"/>
 
 [Youtube Video Link](https://www.youtube.com/watch?v=HASd7XvMKbk)
 
