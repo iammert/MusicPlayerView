@@ -1,24 +1,54 @@
 apply plugin: 'com.android.library'
-
-android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
-
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+apply plugin: 'checkstyle'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.squareup.picasso:picasso:2.5.2'
+  compile 'com.squareup.picasso:picasso:2.5.2'
+}
+
+android {
+
+  compileSdkVersion Integer.parseInt(project.ANDROID_COMPILE_SDK_VERSION)
+  buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+
+  defaultConfig {
+    minSdkVersion Integer.parseInt(project.ANDROID_MIN_SDK)
+    targetSdkVersion Integer.parseInt(project.ANDROID_TARGET_SDK_VERSION)
+    versionCode 1
+    versionName "1.0"
+  }
+
+  sourceSets {
+    main {
+      manifest.srcFile 'AndroidManifest.xml'
+      java.srcDirs = ['src/main/java']
+      res.srcDirs = ['res']
+    }
+  }
+
+  packagingOptions {
+    exclude 'META-INF/DEPENDENCIES.txt'
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/NOTICE.txt'
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/notice.txt'
+    exclude 'META-INF/license.txt'
+    exclude 'META-INF/dependencies.txt'
+    exclude 'META-INF/LGPL2.1'
+    exclude 'META-INF/services/javax.annotation.processing.Processor'
+  }
+
+  lintOptions {
+    abortOnError false
+  }
+
+}
+
+task checkstyle(type: Checkstyle) {
+  configFile file('../config/checkstyle/checkstyle.xml')
+  source 'src/main/java'
+  include '**/*.java'
+  exclude '**/gen/**'
+  classpath = files()
 }
