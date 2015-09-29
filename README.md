@@ -1,4 +1,5 @@
 # MusicPlayerView
+[![Build Status](https://api.travis-ci.org/iammert/MusicPlayerView.svg)](https://travis-ci.org/iammert/MusicPlayerView)
 [![Join the chat at https://gitter.im/iammert/MusicPlayerView](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/iammert/MusicPlayerView) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MusicPlayerView-green.svg?style=flat)](https://android-arsenal.com/details/1/2167)
 
 Android custom view and progress for music player.
