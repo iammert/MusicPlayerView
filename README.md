@@ -114,7 +114,7 @@ repositories {
 Module build.gradle
 ```
 dependencies {
-	compile 'com.github.iammert:MusicPlayerView:dc5f9ad3bc'
+  compile 'com.github.iammert:MusicPlayerView:e3b937c729'
 }
 ```
 
