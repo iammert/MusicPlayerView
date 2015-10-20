@@ -552,6 +552,16 @@ public class MusicPlayerView extends View implements OnPlayPauseToggleListener {
   }
 
   /**
+   * sets cover image
+   * @param drawable
+   */
+  public void setCoverDrawable(Drawable drawable){
+    mBitmapCover = drawableToBitmap(drawable);
+    createShader();
+    postInvalidate();
+  }
+
+  /**
    * gets image URL and load it to cover image.It uses Picasso Library.
    */
   public void setCoverURL(String imageUrl) {
