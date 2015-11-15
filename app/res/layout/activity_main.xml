@@ -28,7 +28,7 @@
         android:layout_below="@+id/textViewSong"/>
 
 
-    <co.mobiwise.library.MusicPlayerView
+    <co.mobiwise.playerview.MusicPlayerView
         android:id="@+id/mpv"
         android:layout_width="250dp"
         android:layout_height="250dp"

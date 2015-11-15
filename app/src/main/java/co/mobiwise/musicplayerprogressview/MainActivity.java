@@ -2,11 +2,9 @@ package co.mobiwise.musicplayerprogressview;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
-import co.mobiwise.library.MusicPlayerView;
+import co.mobiwise.playerview.MusicPlayerView;
 
 public class MainActivity extends Activity {
 

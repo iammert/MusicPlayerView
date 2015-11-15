@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'checkstyle'
 
 dependencies {
-  compile project(':library')
+  compile project(':playerview')
   compile "com.android.support:appcompat-v7:23.0.1"
 }
 
