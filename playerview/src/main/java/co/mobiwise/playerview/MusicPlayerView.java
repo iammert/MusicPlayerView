@@ -555,7 +555,7 @@ public class MusicPlayerView extends View implements OnPlayPauseToggleListener {
    * sets cover image
    * @param drawable
    */
-  public void setCoverDrawable(Drawable drawable){
+  public void setCoverDrawable(Drawable drawable) {
     mBitmapCover = drawableToBitmap(drawable);
     createShader();
     postInvalidate();
@@ -607,6 +607,8 @@ public class MusicPlayerView extends View implements OnPlayPauseToggleListener {
         }
       }
       break;
+
+      default: break;
     }
 
     return super.onTouchEvent(event);
